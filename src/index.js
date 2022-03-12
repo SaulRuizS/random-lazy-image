@@ -1,27 +1,35 @@
-const unplashRandom = 'https://source.unsplash.com/random';
+const unsplashRandom = 'https://source.unsplash.com/random';
 
 const mainContainer = document.getElementById('main-container');
-// mainContainer.className = 'flex flex-col justify-center content-center'
 
 const addImgButton = document.createElement('button');
-addImgButton.className = 'w-1/5 rounded-md bg-red-400';
+addImgButton.className = 'w-1/5 p-4 rounded-md bg-red-400';
 addImgButton.textContent = 'New Image';
 
 mainContainer.append(addImgButton);
 
-const addNewImage = () => {
+let addedImages = 0;
+
+async function addNewImage() {
+
+    const unsplashResponse = await fetch(unsplashRandom);
+    const newRndmImg = await unsplashResponse.url;
+
+    // console.log(newRndmImg);
+
     const imgContainer = document.createElement('div');
-    imgContainer.className = 'w-3/5 p-4 contents';
+    imgContainer.className = 'p-12 flex flex-col justify-center content-center';
     
     const randomImg = document.createElement('img');
-    randomImg.className = 'rounded-lg';
-    randomImg.src = unplashRandom;
+    randomImg.className = 'w-3/5 rounded-lg';
+    randomImg.src = newRndmImg;
 
     imgContainer.append(randomImg);
 
     mainContainer.append(imgContainer);
 
-    console.log(imgContainer);
+    addedImages++;
+    console.log(`Total added images: ${addedImages}`);
 }
 
 addImgButton.onclick = addNewImage;
