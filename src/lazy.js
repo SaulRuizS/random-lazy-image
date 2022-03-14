@@ -1,3 +1,4 @@
+let loadedImages = 0;
 
 const isIntersecting = (entry) => {
     return entry.isIntersecting;
@@ -6,9 +7,11 @@ const isIntersecting = (entry) => {
 const intersection = (filteredEntry) => {
     const containerNode = filteredEntry.target;
     const imageNode = containerNode.querySelector('img');
-    console.log(imageNode.dataset.src);
 
     imageNode.src = imageNode.dataset.src;
+    imageNode.dataset.loaded = 'loaded';
+
+    console.log(`Loaded Images: ${++loadedImages}`);
 
     observer.unobserve(containerNode);
 }
